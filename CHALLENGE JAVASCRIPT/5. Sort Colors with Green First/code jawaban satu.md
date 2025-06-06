@@ -1,4 +1,4 @@
-## Implementation: arrangeFlowerbed
+## Implementation: sortColors
 
 ```javascript
 function sortColors(colors) {
