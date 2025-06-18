@@ -1,86 +1,160 @@
+# 🌸 Dokumentasi Fungsi createFleeceflowerPattern (Versi Lengkap dengan Error Handling)
 
-# 🌼 Fleeceflower Pattern Generator
+## 📌 Deskripsi
 
-Fungsi `createFleeceflowerPattern(size)` menghasilkan **pola simetris berbentuk wajik** (mirip bunga fleece) dalam bentuk string, menggunakan karakter `'1'` dan `'0'` yang disusun secara bergantian. Cocok digunakan untuk latihan logika dan manipulasi string di JavaScript.
+Fungsi `createFleeceflowerPattern` membuat pola bunga fleece berbentuk simetris berbasis angka biner (1 dan 0) yang disusun secara zig-zag. Fungsi ini menampilkan pola dalam bentuk teks multiline dan hanya menerima input bilangan ganjil ≥ 3. Jika input tidak valid, fungsi akan menghasilkan error.
 
 ---
 
-## 🧠 Penjelasan Umum
-
-### 🔢 Validasi Ukuran
-
-Fungsi hanya menerima:
-- Bilangan **ganjil**
-- Minimal **3**
-
-Jika tidak sesuai, maka akan menghasilkan error:
+## 🔧 Deklarasi Fungsi
 
 ```javascript
-throw new Error("Size must be an odd integer of at least 3");
+function createFleeceflowerPattern(size)
 ```
 
 ---
 
-## ⚙️ Parameter
+## 🧩 Kode Lengkap
 
-| Parameter | Tipe     | Deskripsi                                                   |
-|-----------|----------|-------------------------------------------------------------|
-| `size`    | `number` | Ukuran tinggi dan lebar pola (harus ganjil, minimal 3)       |
+```javascript
+function createFleeceflowerPattern(size) {
+    // Validate input
+    if (size < 3 || size % 2 === 0) {
+        throw new Error("Size must be an odd integer of at least 3");
+    }
+    
+    let pattern = "";
+    const center = Math.floor(size / 2);
+    
+    for (let i = 0; i < size; i++) {
+        let row = "";
+        
+        // Calculate distance from center row
+        const distanceFromCenter = Math.abs(i - center);
+        
+        // Calculate number of elements in this row
+        const elementsInRow = size - 2 * distanceFromCenter;
+        
+        // Calculate leading spaces
+        const leadingSpaces = distanceFromCenter;
+        
+        // Add leading spaces
+        row += " ".repeat(leadingSpaces);
+        
+        // Add the binary pattern for this row
+        for (let j = 0; j < elementsInRow; j++) {
+            // Alternate between 1 and 0
+            if (j % 2 === 0) {
+                row += "1";
+            } else {
+                row += "0";
+            }
+        }
+        
+        // Add trailing spaces to match the width
+        row += " ".repeat(leadingSpaces);
+        
+        // Add row to pattern
+        pattern += row;
+        
+        // Add newline except for the last row
+        if (i < size - 1) {
+            pattern += "\n";
+        }
+    }
+    
+    return pattern;
+}
+```
 
 ---
 
-## 🧩 Struktur Logika
+## 🧾 Parameter
 
-1. **Tentukan titik tengah** dari pola (baris ke berapa adalah pusat):
-   ```javascript
-   const center = Math.floor(size / 2);
-   ```
-
-2. **Looping setiap baris (`i`)** sebanyak `size` kali:
-   - Hitung jarak dari baris ke pusat:
-     ```javascript
-     const distanceFromCenter = Math.abs(i - center);
-     ```
-   - Tentukan jumlah karakter `'1'` dan `'0'`:
-     ```javascript
-     const elementsInRow = size - 2 * distanceFromCenter;
-     ```
-   - Tambahkan spasi di kiri:
-     ```javascript
-     row += " ".repeat(leadingSpaces);
-     ```
-
-3. **Tambahkan pola biner bergantian** ke setiap baris:
-   ```javascript
-   for (let j = 0; j < elementsInRow; j++) {
-       row += (j % 2 === 0) ? "1" : "0";
-   }
-   ```
-
-4. **Tambahkan baris ke dalam `pattern` dan akhiri dengan newline (kecuali baris terakhir)**.
+| Parameter | Tipe   | Deskripsi                               |
+| --------- | ------ | --------------------------------------- |
+| size      | Number | Ukuran pola (harus bilangan ganjil ≥ 3) |
 
 ---
 
-## ✅ Contoh Output
+## ⚠️ Validasi & Error Handling
+
+Jika `size` kurang dari 3 atau merupakan bilangan genap, fungsi akan menghasilkan error.
+
+### Contoh:
+
+```javascript
+createFleeceflowerPattern(4);
+```
+
+🛑 Akan menghasilkan:
+
+```
+Error: Size must be an odd integer of at least 3
+```
+
+---
+
+## 🔄 Cara Kerja
+
+1. Validasi input.
+2. Hitung jarak setiap baris dari tengah.
+3. Hitung jumlah angka `1` dan `0` yang akan ditampilkan berdasarkan jarak tersebut.
+4. Tambahkan spasi di depan dan belakang untuk membentuk simetri.
+5. Gabungkan semua baris menjadi satu string pola multiline.
+
+---
+
+## 📤 Nilai Kembali
+
+* **Tipe:** `String`
+* **Deskripsi:** String pola bunga fleece yang terdiri dari angka `1` dan `0` berbentuk simetris.
+
+---
+
+## 💡 Contoh Penggunaan
 
 ```javascript
 console.log(createFleeceflowerPattern(5));
 ```
 
-### Output:
+### ✅ Output
+
 ```
   1  
- 101 
+ 101
 10101
- 101 
+ 101
   1  
 ```
 
 ---
 
-## 📌 Catatan Tambahan
+## 🧪 Contoh Tambahan
 
-- Pola selalu **simetris secara vertikal dan horizontal**.
-- Dapat dimodifikasi untuk karakter lain seperti `*` dan `-`.
+```javascript
+console.log(createFleeceflowerPattern(7));
+```
+
+### Output:
+
+```
+   1   
+  101  
+ 10101
+1010101
+ 10101
+  101  
+   1   
+```
 
 ---
+
+## 📎 Catatan
+
+* Fungsi ini membantu memahami konsep simetri dan manipulasi string dalam JavaScript.
+* Dapat dikembangkan lebih lanjut dengan karakter berbeda atau pola warna.
+
+---
+
+Selamat berkreasi dengan pola! 🎨
