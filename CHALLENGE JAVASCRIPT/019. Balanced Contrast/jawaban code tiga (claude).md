@@ -97,6 +97,7 @@ function balancedContrast(arr, condition, str) {
   const elementsToReverse = [];
   const indicesToReverse = [];
 
+  // Find elements greater than condition and their indices
   for (let i = 0; i < manipulatedArray.length; i++) {
     if (manipulatedArray[i] > condition) {
       elementsToReverse.push(manipulatedArray[i]);
@@ -104,6 +105,7 @@ function balancedContrast(arr, condition, str) {
     }
   }
 
+  // Reverse the elements and place them back
   elementsToReverse.reverse();
   for (let i = 0; i < indicesToReverse.length; i++) {
     manipulatedArray[indicesToReverse[i]] = elementsToReverse[i];
